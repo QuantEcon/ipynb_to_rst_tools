@@ -8,7 +8,7 @@ Tools, scripts and instructions for converting Jupyter notebooks to RST files
 
 To load on Manjaro Dell:
 
-1. Must have pandoc 2.6 or newer
+1. Must have pandoc >= 2.6
 
    To get it:
 
@@ -22,6 +22,7 @@ To load on Manjaro Dell:
 
    ```conda deactivate```  (in a terminal)
 
+**Note:** As of March 2019, the default version of pandoc in Anaconda is 1.19
 
 To get things to work in a terminal (in the directory where the `*.ipynb` is):
 
