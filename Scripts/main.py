@@ -1,7 +1,7 @@
 import os
 import glob
 
-os.system("python convert.py")
+#os.system("python convert.py")
 path = 'test/*rst'
 files = glob.glob(path)
 
@@ -19,6 +19,47 @@ def func_replace(a, b, filename):
             f.seek(0)
             f.write(data.replace(a, b))
             f.truncate()
+
+
+def remove_raw_latex(filename):
+    raw_latex=0
+    str3 = ":raw-latex:`"
+    str2 = "`"
+    texlist = make_texList(filename)
+    f = open(filename, "w", encoding="utf8")
+    for i in range(0, len(texlist)):
+        srr = ""
+        if str3 in texlist[i]:
+            raw_latex=1
+            x=0
+            while x<len(texlist[i]):
+                if raw_latex==2:
+                    if str2 in texlist[i][x]:
+                        raw_latex=-1
+                if raw_latex==-1:
+                    srr+=""
+                    x+=1
+                    raw_latex=0
+                if raw_latex==2:
+                    srr+=texlist[i][x]
+                    x+=1
+
+                if x<(len(texlist[i])-12):
+                    if str3 in texlist[i][x:x+12]:
+                        srr+=""
+                        x+=12
+                        raw_latex=2
+                    else:
+                        srr+=texlist[i][x]
+                        x+=1
+        else:
+            srr+=texlist[i]
+             
+        f.write(srr+"\n")
+
+    f.close()
+
+
 
 
 def math_environment_process(filename):
@@ -76,6 +117,7 @@ def math_environment_process(filename):
 
     f.close()
 
+
 def make_changes(filename):
     func_replace(' code::', ' code-block::', filename)
     func_replace('ipython3', 'python3', filename)
@@ -83,3 +125,4 @@ def make_changes(filename):
 for name in files:
     make_changes(name)
     math_environment_process(name)
+    #remove_raw_latex(name)
