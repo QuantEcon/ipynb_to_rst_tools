@@ -1,7 +1,7 @@
 import os
 import glob
 
-#os.system("python convert.py")
+os.system("python convert.py")
 path = 'test/*rst'
 files = glob.glob(path)
 
@@ -125,4 +125,4 @@ def make_changes(filename):
 for name in files:
     make_changes(name)
     math_environment_process(name)
-    #remove_raw_latex(name)
+    remove_raw_latex(name)
